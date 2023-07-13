@@ -1,24 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:prototipo_movil_proyecto/benefits/screens/benefits_screen.dart';
-import 'package:prototipo_movil_proyecto/products/screens/products_screen.dart';
 import 'package:prototipo_movil_proyecto/trips/screens/trips_screen.dart';
+import 'package:prototipo_movil_proyecto/users/screens/users_screen.dart';
 
-class UserScreen extends StatefulWidget {
+class ProductScreen extends StatefulWidget {
   final int userId;
   final String csrfToken;
-  const UserScreen({super.key, required this.userId, required this.csrfToken});
+  const ProductScreen(
+      {super.key, required this.userId, required this.csrfToken});
 
   @override
-  State<UserScreen> createState() => _UserScreenState();
+  State<ProductScreen> createState() => _ProductScreenState();
 }
 
-class _UserScreenState extends State<UserScreen> {
-  int _selectedIndex = 0;
+class _ProductScreenState extends State<ProductScreen> {
+  int _selectedIndex = 2;
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
+
     if (index == 1) {
       Navigator.push(
         context,
@@ -29,11 +31,11 @@ class _UserScreenState extends State<UserScreen> {
           ),
         ),
       );
-    } else if (index == 2) {
+    } else if (index == 0) {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => ProductScreen(
+          builder: (context) => UserScreen(
             userId: widget.userId,
             csrfToken: widget.csrfToken,
           ),
@@ -63,7 +65,7 @@ class _UserScreenState extends State<UserScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('User Screen'),
+            Text('Pantalla Productos'),
           ],
         ),
       ),

@@ -1,29 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:prototipo_movil_proyecto/benefits/screens/benefits_screen.dart';
 import 'package:prototipo_movil_proyecto/products/screens/products_screen.dart';
-import 'package:prototipo_movil_proyecto/trips/screens/trips_screen.dart';
+import 'package:prototipo_movil_proyecto/users/screens/users_screen.dart';
 
-class UserScreen extends StatefulWidget {
+class TripScreen extends StatefulWidget {
   final int userId;
   final String csrfToken;
-  const UserScreen({super.key, required this.userId, required this.csrfToken});
+  const TripScreen({super.key, required this.userId, required this.csrfToken});
 
   @override
-  State<UserScreen> createState() => _UserScreenState();
+  State<TripScreen> createState() => _TripScreenState();
 }
 
-class _UserScreenState extends State<UserScreen> {
-  int _selectedIndex = 0;
+class _TripScreenState extends State<TripScreen> {
+  int _selectedIndex = 1;
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
-    if (index == 1) {
+    if (index == 0) {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => TripScreen(
+          builder: (context) => UserScreen(
             userId: widget.userId,
             csrfToken: widget.csrfToken,
           ),
@@ -63,7 +63,7 @@ class _UserScreenState extends State<UserScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('User Screen'),
+            Text('Pantalla Viajes'),
           ],
         ),
       ),

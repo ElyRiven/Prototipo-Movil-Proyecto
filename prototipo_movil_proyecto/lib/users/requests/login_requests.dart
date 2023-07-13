@@ -1,8 +1,7 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
 
-Future<int> login(usernameInp, passwordInp) async {
+Future<Map<String, dynamic>> login(usernameInp, passwordInp) async {
   final String username = usernameInp;
   final String password = passwordInp;
 
@@ -14,9 +13,12 @@ Future<int> login(usernameInp, passwordInp) async {
     if (response.statusCode == 200) {
       final responseData = jsonDecode(response.body);
       final userId = responseData[0]["pk"];
-      return userId;
+      final cookieHeader = response.headers["set-cookie"];
+      final match = RegExp(r"csrftoken=(.*?);").firstMatch(cookieHeader!);
+      final csrfToken = (match?.group(1) ?? "");
+      return {"userId": userId, "csrfToken": csrfToken};
     } else {
-      return 0;
+      return {};
     }
   } catch (error) {
     throw Exception('Error al realizar la solicitud');

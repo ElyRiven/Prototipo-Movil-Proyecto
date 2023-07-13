@@ -69,11 +69,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 String password = _passwordController.text;
                 String errorMessage = '';
                 login(username, password).then((value) {
-                  if (value != 0) {
+                  if (value.containsKey("userId") &&
+                      value.containsKey("csrfToken")) {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => UserScreen(userId: value),
+                          builder: (context) => UserScreen(
+                              userId: value["userId"],
+                              csrfToken: value["csrfToken"]),
                         ));
                   } else {
                     errorMessage = 'Usuario y/o contraseña incorrectos';
