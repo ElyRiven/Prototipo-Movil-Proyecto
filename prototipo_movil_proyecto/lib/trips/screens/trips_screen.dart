@@ -173,33 +173,34 @@ class _TripScreenState extends State<TripScreen> {
       ),
       body: Align(
         alignment: Alignment.topCenter,
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const Text('HISTORIAL DE VIAJES',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-              const SizedBox(height: 10),
-              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                ElevatedButton(
-                  onPressed: activeTrip?.state == "IN PROGRESS"
-                      ? () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ActiveTripScreen(
-                                      userId: widget.userId,
-                                      csrfToken: widget.csrfToken,
-                                      productId: activeTrip!.productCode,
-                                    )),
-                          );
-                        }
-                      : null,
-                  child: const Text('Viaje Activo'),
-                ),
-              ]),
-              const SizedBox(height: 20),
-              ListView.builder(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Text('HISTORIAL DE VIAJES',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            const SizedBox(height: 10),
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              ElevatedButton(
+                onPressed: activeTrip?.state == "IN PROGRESS"
+                    ? () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ActiveTripScreen(
+                              userId: widget.userId,
+                              csrfToken: widget.csrfToken,
+                              productId: activeTrip!.productCode,
+                            ),
+                          ),
+                        );
+                      }
+                    : null,
+                child: const Text('Viaje Activo'),
+              ),
+            ]),
+            const SizedBox(height: 20),
+            Expanded(
+              child: ListView.builder(
                 shrinkWrap: true,
                 itemCount: endedTrips.length,
                 itemBuilder: (context, index) {
@@ -219,17 +220,19 @@ class _TripScreenState extends State<TripScreen> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => TripItineraryScreen(
-                                        userId: widget.userId,
-                                        csrfToken: widget.csrfToken,
-                                        productId: product.code,
-                                        productName: product.name,
-                                      )),
+                                builder: (context) => TripItineraryScreen(
+                                  userId: widget.userId,
+                                  csrfToken: widget.csrfToken,
+                                  productId: product.code,
+                                  productName: product.name,
+                                ),
+                              ),
                             );
                           },
-                          title: Text(product.name,
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.bold)),
+                          title: Text(
+                            product.name,
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                          ),
                           subtitle: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -252,8 +255,8 @@ class _TripScreenState extends State<TripScreen> {
                   );
                 },
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
       bottomNavigationBar: Theme(
