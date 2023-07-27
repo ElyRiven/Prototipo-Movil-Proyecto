@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:prototipo_movil_proyecto/benefits/screens/benefits_screen.dart';
+import 'package:prototipo_movil_proyecto/products/models/product_model.dart';
+import 'package:prototipo_movil_proyecto/products/requests/product_requests.dart';
+import 'package:prototipo_movil_proyecto/products/screens/product_itinerary_screen.dart';
 import 'package:prototipo_movil_proyecto/trips/screens/trips_screen.dart';
 import 'package:prototipo_movil_proyecto/users/screens/users_screen.dart';
 
@@ -15,6 +18,18 @@ class ProductScreen extends StatefulWidget {
 
 class _ProductScreenState extends State<ProductScreen> {
   int _selectedIndex = 2;
+  List<Product> products = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedIndex = 2;
+    getSellingProducts().then((value) {
+      setState(() {
+        products = value;
+      });
+    });
+  }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -61,12 +76,70 @@ class _ProductScreenState extends State<ProductScreen> {
         centerTitle: true,
         title: Image.asset('assets/images/logo_text.png'),
       ),
-      body: const Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('Pantalla Productos'),
-          ],
+      body: Align(
+        alignment: Alignment.topCenter,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Text('PRODUCTOS DISPONIBLES',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 20),
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: products.length,
+                itemBuilder: (context, index) {
+                  final product = products[index];
+                  return Column(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.green,
+                            width: 3.0,
+                          ),
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                        child: ListTile(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ProductItineraryScreen(
+                                        userId: widget.userId,
+                                        csrfToken: widget.csrfToken,
+                                        productId: product.code,
+                                        product: product,
+                                      )),
+                            );
+                          },
+                          title: Text(product.name,
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold)),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Pais Destino: ${product.country}'),
+                              Text('Precio: \$${product.price}'),
+                              Text('Fecha de inicio: ${product.startDate}'),
+                              Text('Fecha de fin: ${product.endDate}'),
+                            ],
+                          ),
+                          leading: const Icon(Icons.event_available),
+                          trailing: const Icon(Icons.arrow_forward),
+                        ),
+                      ),
+                      const Divider(
+                        thickness: 2.0,
+                        indent: 16.0,
+                        endIndent: 16.0,
+                      ),
+                    ],
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: Theme(

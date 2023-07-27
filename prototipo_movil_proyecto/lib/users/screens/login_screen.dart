@@ -38,6 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
           SizedBox(
             width: 250.0,
             child: TextField(
+              key: const Key('user'),
               onTapOutside: (event) {
                 FocusScope.of(context).unfocus();
               },
@@ -51,6 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
           SizedBox(
             width: 250.0,
             child: TextField(
+              key: const Key('password'),
               onTapOutside: (event) {
                 FocusScope.of(context).unfocus();
               },
@@ -64,6 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
           SizedBox(
             width: 250.0,
             child: ElevatedButton(
+              key: const Key('login'),
               onPressed: () {
                 String username = _usernameController.text;
                 String password = _passwordController.text;

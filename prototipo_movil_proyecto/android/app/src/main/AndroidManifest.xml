@@ -5,6 +5,8 @@
         android:label="prototipo_movil_proyecto"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyBR3__VK1XRiGyqdqnRhak5OFOFHy43CTU"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"

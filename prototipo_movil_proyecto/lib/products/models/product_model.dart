@@ -4,8 +4,8 @@ class Product {
   final String price;
   final String description;
   final String country;
-  final DateTime startDate;
-  final DateTime endDate;
+  final String startDate;
+  final String endDate;
   final String state;
 
   Product({

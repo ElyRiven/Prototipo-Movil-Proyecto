@@ -78,11 +78,13 @@ class _ProgressBenefitScreenState extends State<ProgressBenefitScreen> {
             actions: <Widget>[
               TextButton(
                 onPressed: () {
-                  sendPoints(widget.userId, points, widget.csrfToken);
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => BenefitScreen(
-                        userId: widget.userId, csrfToken: widget.csrfToken),
-                  ));
+                  sendPoints(widget.userId, points, widget.csrfToken)
+                      .then((value) {
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => BenefitScreen(
+                          userId: widget.userId, csrfToken: widget.csrfToken),
+                    ));
+                  });
                 },
                 child: const Text('Cerrar'),
               ),
@@ -157,63 +159,67 @@ class _ProgressBenefitScreenState extends State<ProgressBenefitScreen> {
       ),
       body: Align(
         alignment: Alignment.topCenter,
-        child: SingleChildScrollView(
+        child: Container(
+          constraints:
+              BoxConstraints(maxHeight: MediaQuery.of(context).size.height),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Text('CONOCIENDO EL MUNDO', style: TextStyle(fontSize: 20)),
               const SizedBox(height: 20),
-              ListView.builder(
-                shrinkWrap: true,
-                itemCount: questions.length,
-                itemBuilder: (context, index) {
-                  final question = questions[index];
-                  final isAnswerSelected = answerSelected[index];
-                  return Column(
-                    children: [
-                      Text(
-                        question.description,
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(height: 10),
-                      Column(
-                        children: [
-                          for (int i = 0; i < 3; i++)
-                            Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.green,
-                                  width: 3.0,
-                                ),
-                                borderRadius: BorderRadius.circular(20.0),
-                              ),
-                              child: ListTile(
-                                title: Text(
-                                  i == 0 ? question.answer : 'OPCION $i',
-                                  style: const TextStyle(
-                                    color: Colors.black,
+              Flexible(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: questions.length,
+                  itemBuilder: (context, index) {
+                    final question = questions[index];
+                    final isAnswerSelected = answerSelected[index];
+                    return Column(
+                      children: [
+                        Text(
+                          question.description,
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(height: 10),
+                        Column(
+                          children: [
+                            for (int i = 0; i < 3; i++)
+                              Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Colors.green,
+                                    width: 3.0,
                                   ),
+                                  borderRadius: BorderRadius.circular(20.0),
                                 ),
-                                onTap: () {
-                                  if (!isAnswerSelected) {
-                                    if (i == 0) {
-                                      selectAnswer(true, index);
-                                    } else {
-                                      selectAnswer(false, index);
+                                child: ListTile(
+                                  title: Text(
+                                    i == 0 ? question.answer : 'OPCION $i',
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  onTap: () {
+                                    if (!isAnswerSelected) {
+                                      if (i == 0) {
+                                        selectAnswer(true, index);
+                                      } else {
+                                        selectAnswer(false, index);
+                                      }
                                     }
-                                  }
-                                },
-                                tileColor: isAnswerSelected
-                                    ? Colors.grey.withOpacity(0.5)
-                                    : null,
+                                  },
+                                  tileColor: isAnswerSelected
+                                      ? Colors.grey.withOpacity(0.5)
+                                      : null,
+                                ),
                               ),
-                            ),
-                        ],
-                      ),
-                      const SizedBox(height: 25),
-                    ],
-                  );
-                },
+                          ],
+                        ),
+                        const SizedBox(height: 25),
+                      ],
+                    );
+                  },
+                ),
               ),
               ElevatedButton(
                 onPressed: allQuestionsAnswered ? showResultDialog : null,

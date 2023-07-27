@@ -106,8 +106,8 @@ Future<Product> getProduct(int productId) async {
         price: responseData['fields']['pro_price'] as String,
         description: responseData['fields']['pro_description'] as String,
         country: responseData['fields']['pro_country'] as String,
-        startDate: DateTime.parse(responseData['fields']['pro_startdate']),
-        endDate: DateTime.parse(responseData['fields']['pro_enddate']),
+        startDate: responseData['fields']['pro_startdate'],
+        endDate: responseData['fields']['pro_enddate'],
         state: responseData['fields']['pro_state'] as String,
       );
       return product;
@@ -225,5 +225,35 @@ Future<void> saveUserBenefit(
     }
   } catch (error) {
     throw Exception('Error al actualizar el beneficio: $error');
+  }
+}
+
+Future<void> saveBenefitLog(
+    int userCode, int benefitCode, String csrfToken) async {
+  final url = Uri.parse('http://10.0.2.2:8000/api/saveBenefitLog/');
+
+  final requestBody = {
+    'use_code': userCode,
+    'ben_code': benefitCode,
+  };
+
+  try {
+    final response = await http.put(
+      url,
+      body: jsonEncode(requestBody),
+      headers: {
+        'Content-Type': 'application/json',
+        'Cookie': 'csrftoken=$csrfToken',
+        'x-csrftoken': csrfToken,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      return;
+    } else {
+      throw Exception('Error en la solicitud: ${response.statusCode}');
+    }
+  } catch (error) {
+    throw Exception('Error al guardar el log del beneficio: $error');
   }
 }

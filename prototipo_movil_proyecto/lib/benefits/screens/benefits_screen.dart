@@ -74,6 +74,8 @@ class _BenefitScreenState extends State<BenefitScreen> {
               if (userPoints >= 1500 && userPoints < 2000) {
                 saveUserBenefit(
                     widget.userId, userBenefit.bencode, widget.csrfToken);
+                saveBenefitLog(
+                    widget.userId, userBenefit.bencode, widget.csrfToken);
                 sendMail("Calcomanías para el Equipaje", userMail);
               }
             }
@@ -83,6 +85,8 @@ class _BenefitScreenState extends State<BenefitScreen> {
             } else {
               if (userPoints >= 2000 && userPoints < 2500) {
                 saveUserBenefit(
+                    widget.userId, userBenefit.bencode, widget.csrfToken);
+                saveBenefitLog(
                     widget.userId, userBenefit.bencode, widget.csrfToken);
                 sendMail("Termo para Bebidas", userMail);
               }
@@ -94,6 +98,8 @@ class _BenefitScreenState extends State<BenefitScreen> {
               if (userPoints >= 2500 && userPoints < 3000) {
                 saveUserBenefit(
                     widget.userId, userBenefit.bencode, widget.csrfToken);
+                saveBenefitLog(
+                    widget.userId, userBenefit.bencode, widget.csrfToken);
                 sendMail("Artículo de Playa", userMail);
               }
             }
@@ -104,14 +110,11 @@ class _BenefitScreenState extends State<BenefitScreen> {
               if (userPoints >= 3000) {
                 saveUserBenefit(
                     widget.userId, userBenefit.bencode, widget.csrfToken);
+                saveBenefitLog(
+                    widget.userId, userBenefit.bencode, widget.csrfToken);
                 sendMail("Maleta de Mano", userMail);
               }
             }
-          } else {
-            if (userBenefit.state == 'COMPLETE') {
-              print("FBeneficio Completado $i");
-              continue;
-            } else {}
           }
         }
       });
@@ -184,7 +187,8 @@ class _BenefitScreenState extends State<BenefitScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Text('BENEFICIOS', style: TextStyle(fontSize: 20)),
+              const Text('BENEFICIOS',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
               const SizedBox(height: 10),
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 ElevatedButton(
@@ -215,6 +219,7 @@ class _BenefitScreenState extends State<BenefitScreen> {
                                 userId: widget.userId,
                                 csrfToken: widget.csrfToken,
                                 achievementBenefits: achievementBenefits,
+                                userEmail: userMail,
                               ),
                             ),
                           );
@@ -312,8 +317,7 @@ class _BenefitScreenState extends State<BenefitScreen> {
                         .map((benefit) => DataRow(
                               cells: [
                                 DataCell(Text(benefit.name)),
-                                const DataCell(
-                                    Text(('5, 15 y 25% de descuento'))),
+                                const DataCell(Text(('10% de descuento'))),
                               ],
                             ))
                         .toList(),
