@@ -126,7 +126,7 @@ class _ActiveTripItineraryScreenState extends State<ActiveTripItineraryScreen> {
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Descripcion: ${place.description}'),
+                            Text('Descripción: ${place.description}'),
                             Text('Ciudad: ${place.city}'),
                             Text('Actividades: ${place.activity}'),
                             Text('Fecha de inicio: ${place.startDate}'),

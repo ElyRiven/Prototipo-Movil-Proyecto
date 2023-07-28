@@ -236,7 +236,7 @@ class _TripScreenState extends State<TripScreen> {
                           subtitle: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('Pais Destino: ${product.country}'),
+                              Text('País Destino: ${product.country}'),
                               Text('Precio: \$${product.price}'),
                               Text('Fecha de inicio: ${product.startDate}'),
                               Text('Fecha de fin: ${product.endDate}'),

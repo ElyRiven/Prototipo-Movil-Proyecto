@@ -115,7 +115,7 @@ class _ItineraryPlaceScreenState extends State<ItineraryPlaceScreen> {
                   children: [
                     ListTile(
                       leading: const Icon(Icons.description),
-                      title: const Text("Descripcion:",
+                      title: const Text("Descripción:",
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold)),
                       subtitle: Text(

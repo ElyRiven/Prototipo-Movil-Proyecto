@@ -36,7 +36,7 @@ class _EditUserScreenState extends State<EditUserScreen> {
   String newFirstName = '';
   String newLastName = '';
   String newEmail = '';
-  int newIdNumber = 0;
+  String newIdNumber = '';
   int newPhone = 0;
   String newPassword = '';
   int role = 0;
@@ -231,19 +231,17 @@ class _EditUserScreenState extends State<EditUserScreen> {
                               },
                               controller: _idNumberController,
                               decoration: const InputDecoration(
-                                labelText: "Identificacion",
+                                labelText: "Identificación",
                                 border: InputBorder.none,
                               ),
-                              keyboardType: TextInputType.number,
                               inputFormatters: <TextInputFormatter>[
-                                FilteringTextInputFormatter.digitsOnly,
                                 LengthLimitingTextInputFormatter(10)
                               ],
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return 'Por favor ingresa un número válido';
+                                  return 'Por favor ingresa una identificación válida';
                                 } else {
-                                  newIdNumber = int.parse(value);
+                                  newIdNumber = value;
                                 }
                                 return null;
                               },

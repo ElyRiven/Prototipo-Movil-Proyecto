@@ -203,7 +203,7 @@ class _UserScreenState extends State<UserScreen> {
                     const Icon(Icons.perm_identity),
                     const SizedBox(width: 10),
                     Text(
-                      'Identificacion: ${user?.idNumber ?? ''}',
+                      'Identificación: ${user?.idNumber ?? ''}',
                       style: const TextStyle(
                         fontSize: 15,
                       ),

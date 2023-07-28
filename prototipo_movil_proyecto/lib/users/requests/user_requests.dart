@@ -6,7 +6,7 @@ Future<void> saveUser(
     String firstName,
     String lastName,
     String mail,
-    int idNumber,
+    String idNumber,
     int phone,
     String password,
     int role,
@@ -18,7 +18,7 @@ Future<void> saveUser(
     "use_firstname": firstName,
     "use_lastname": lastName,
     "use_email": mail,
-    "use_idnumber": "$idNumber",
+    "use_idnumber": idNumber,
     "use_phonenumber": "$phone",
     "use_password": password,
     "rol_code": role

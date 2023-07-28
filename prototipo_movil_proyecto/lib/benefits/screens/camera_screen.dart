@@ -56,7 +56,7 @@ class _CameraScreenState extends State<CameraScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Camera'),
+        title: const Text('Cámara'),
       ),
       body: Column(
         children: [
