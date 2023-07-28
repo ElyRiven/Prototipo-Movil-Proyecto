@@ -41,7 +41,7 @@ Future<void> saveUser(
       throw Exception('Error en la solicitud: ${response.statusCode}');
     }
   } catch (error) {
-    throw Exception('Error al enviar los puntos: $error');
+    throw Exception('Error al actualizar datos: $error');
   }
 }
 
@@ -71,7 +71,7 @@ Future<void> saveFirstLogin(
       throw Exception('Error en la solicitud: ${response.statusCode}');
     }
   } catch (error) {
-    throw Exception('Error al enviar los puntos: $error');
+    throw Exception('Error al guardar fecha: $error');
   }
 }
 
@@ -99,6 +99,34 @@ Future<void> resetBenefits(int userCode, String csrfToken) async {
       throw Exception('Error en la solicitud: ${response.statusCode}');
     }
   } catch (error) {
-    throw Exception('Error al enviar los puntos: $error');
+    throw Exception('Error al reiniciar los beneficios: $error');
+  }
+}
+
+Future<void> resetPoints(int userCode, String csrfToken) async {
+  final url = Uri.parse('http://10.0.2.2:8000/api/restartPoints/');
+
+  final requestBody = {
+    "use_code": userCode,
+  };
+
+  try {
+    final response = await http.put(
+      url,
+      body: jsonEncode(requestBody),
+      headers: {
+        'Content-Type': 'application/json',
+        'Cookie': 'csrftoken=$csrfToken',
+        'x-csrftoken': csrfToken,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      return;
+    } else {
+      throw Exception('Error en la solicitud: ${response.statusCode}');
+    }
+  } catch (error) {
+    throw Exception('Error al reiniciar los puntos: $error');
   }
 }

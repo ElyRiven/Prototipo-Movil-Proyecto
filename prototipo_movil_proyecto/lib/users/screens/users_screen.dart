@@ -39,7 +39,7 @@ class _UserScreenState extends State<UserScreen> {
               return AlertDialog(
                 title: const Text('¡Bienvenido!'),
                 content: const Text(
-                    'Es tu primera vez en la aplicación, gracias por viajar con nosotros'),
+                    'Es tu primera vez en la aplicación\n ¡Gracias por viajar con nosotros!'),
                 actions: <Widget>[
                   TextButton(
                     child: const Text('Aceptar'),
@@ -55,6 +55,7 @@ class _UserScreenState extends State<UserScreen> {
           String firstLoginDate =
               DateFormat('yyyy-MM-dd').format(DateTime.now());
           resetBenefits(widget.userId, widget.csrfToken);
+          resetPoints(widget.userId, widget.csrfToken);
           saveFirstLogin(widget.userId, firstLoginDate, widget.csrfToken);
           showDialog(
             context: context,
